@@ -109,7 +109,7 @@ function initContactForm() {
 
   const showError = (id, msg) => {
     const el = document.getElementById(`${id}Error`);
-    const input = document.getElementById(id === 'message' ? 'message' : id === 'phone' ? 'phone' : 'name');
+    const input = document.getElementById(id);
     if (el) el.textContent = msg;
     if (input) input.classList.toggle('error', !!msg);
   };

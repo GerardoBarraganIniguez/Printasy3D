@@ -111,24 +111,6 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
 
 .btn-full { width: 100%; justify-content: center; }
 
-/* Image placeholder when image fails to load */
-.img-placeholder {
-  background: var(--color-gray-light);
-  min-height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius);
-  border: 2px dashed #ddd;
-  position: relative;
-}
-.img-placeholder img { display: none; }
-.img-placeholder::after {
-  content: '📷 Tu foto aquí';
-  color: var(--color-gray-mid);
-  font-size: 0.9rem;
-  font-weight: 500;
-}
 
 
 /* ===========================
@@ -253,8 +235,8 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
    =========================== */
 .hero {
   position: relative;
-  height: 100svh;
   height: 100vh;
+  height: 100svh;
   min-height: 600px;
   display: flex;
   align-items: center;
@@ -268,11 +250,9 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
   background-size: cover;
   background-position: center;
   background-color: #1a2a3a;
-  /* transform: scale(0.95); */
   transition: transform 8s ease;
   overflow: hidden;
 }
-.hero-gif,
 .hero-video {
   width: 100%;
   height: 100%;
@@ -405,11 +385,6 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
   overflow: hidden;
   aspect-ratio: 4/5;
   background: var(--color-gray-light);
-}
-.about-img-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .about-img-badge {
@@ -551,6 +526,7 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
 }
 
 .gallery-item.img-placeholder {
+  background: var(--color-gray-light);
   min-height: 240px;
   display: flex;
   align-items: center;
@@ -559,6 +535,7 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
   gap: 0.5rem;
   border: 2px dashed #ddd;
 }
+.gallery-item.img-placeholder img { display: none; }
 .gallery-item.img-placeholder::before {
   content: '📷';
   font-size: 2rem;
@@ -639,8 +616,6 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
 /* ===========================
    CONTACT
    =========================== */
-.contact { background: var(--color-white); }
-
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
