@@ -329,11 +329,8 @@
   <nav class="navbar scrolled" id="navbar">
     <div class="nav-container">
       <a href="index.html#inicio" class="nav-logo">
-        <div class="logo-dual">
-          <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
-          <img src="images/logo.svg" alt="Printasy 3D" class="logo-img logo-svg">
-        </div>
-        <span class="logo-fallback">Printasy<span class="logo-accent">3D</span></span>
+        <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
+        <span class="logo-fallback">Printasy<span class="logo-accent">&nbsp;3D</span></span>
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
@@ -347,6 +344,18 @@
       </button>
     </div>
   </nav>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <button class="mobile-panel-close" id="mobilePanelClose" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="26" height="26"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <ul>
+      <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
+      <li><a href="index.html#nosotros" class="nav-link">Nosotros</a></li>
+      <li><a href="index.html#servicios" class="nav-link">Servicios</a></li>
+      <li><a href="index.html#galeria" class="nav-link">Galería</a></li>
+      <li><a href="index.html#contacto" class="nav-link nav-cta">Cotiza ahora</a></li>
+    </ul>
+  </div>
 
   <!-- ===== HERO ===== -->
   <div class="portfolio-hero">
@@ -482,11 +491,8 @@
     <div class="container">
       <div class="footer-inner">
         <a href="index.html#inicio" class="nav-logo footer-logo">
-          <div class="logo-dual">
-            <img src="images/logo.svg" alt="Printasy 3D" class="logo-img logo-svg">
-            <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
-          </div>
-          <span class="logo-fallback">Printasy<span class="logo-accent">3D</span></span>
+          <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
+          <span class="logo-fallback">Printasy<span class="logo-accent">&nbsp;3D</span></span>
         </a>
         <p class="footer-copy">© 2025 Printasy 3D · Guadalajara, Jalisco</p>
         <div class="footer-social">
@@ -503,17 +509,21 @@
 
   <script>
     // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const navLinks  = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      navLinks.classList.toggle('open');
-      hamburger.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+    const hamburger   = document.getElementById('hamburger');
+    const mobilePanel = document.getElementById('navMobilePanel');
+    const closeBtn    = document.getElementById('mobilePanelClose');
+    const toggle = (open) => {
+      hamburger.classList.toggle('open', open);
+      mobilePanel.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    hamburger.addEventListener('click', () => toggle(!hamburger.classList.contains('open')));
+    if (closeBtn) closeBtn.addEventListener('click', () => toggle(false));
+    mobilePanel.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => toggle(false)));
+    document.addEventListener('click', e => {
+      if (!mobilePanel.contains(e.target) && !hamburger.contains(e.target)) toggle(false);
     });
-    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
-    }));
 
     // Tabs
     document.querySelectorAll('.tab-btn').forEach(tab => {

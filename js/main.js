@@ -48,21 +48,24 @@ function initNavbar() {
 
 // ===== MENÚ HAMBURGUESA =====
 function initMobileMenu() {
-  const hamburger = document.getElementById('hamburger');
-  const navLinks  = document.getElementById('navLinks');
-  const links     = navLinks.querySelectorAll('.nav-link');
+  const hamburger   = document.getElementById('hamburger');
+  const mobilePanel = document.getElementById('navMobilePanel');
+  const closeBtn    = document.getElementById('mobilePanelClose');
+  if (!hamburger || !mobilePanel) return;
+  const links = mobilePanel.querySelectorAll('.nav-link');
 
   const toggle = (open) => {
     hamburger.classList.toggle('open', open);
-    navLinks.classList.toggle('open', open);
+    mobilePanel.classList.toggle('open', open);
     hamburger.setAttribute('aria-expanded', String(open));
     document.body.style.overflow = open ? 'hidden' : '';
   };
 
   hamburger.addEventListener('click', () => toggle(!hamburger.classList.contains('open')));
+  if (closeBtn) closeBtn.addEventListener('click', () => toggle(false));
   links.forEach(l => l.addEventListener('click', () => toggle(false)));
   document.addEventListener('click', e => {
-    if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) toggle(false);
+    if (!mobilePanel.contains(e.target) && !hamburger.contains(e.target)) toggle(false);
   });
 }
 
