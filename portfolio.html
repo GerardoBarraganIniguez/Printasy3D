@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio | Printasy 3D</title>
+  <meta name="description" content="Portafolio completo de Printasy 3D. Piezas funcionales, decorativas y más, impresas en 3D en Guadalajara, Jalisco.">
+  <meta name="theme-color" content="#4ec3e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ===========================
+       PORTFOLIO PAGE
+       =========================== */
+    .portfolio-hero {
+      background: var(--color-black);
+      padding: 7rem 0 3.5rem;
+      text-align: center;
+    }
+    .portfolio-hero h1 {
+      color: var(--color-white);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 0.75rem;
+    }
+    .portfolio-hero p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      margin: 0;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--color-primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      transition: color var(--transition);
+    }
+    .back-link:hover { color: var(--color-primary-dark); }
+
+    /* Category tabs */
+    .portfolio-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 2.5rem 1.5rem 0;
+    }
+    .tab-btn {
+      padding: 0.65rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 2px solid #e5e5e5;
+      color: var(--color-gray-dark);
+      background: var(--color-white);
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition),
+                  border-color var(--transition), box-shadow var(--transition);
+    }
+    .tab-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .tab-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-white);
+      box-shadow: 0 4px 16px rgba(78,195,232,0.35);
+    }
+
+    /* Portfolio section */
+    .portfolio-section { padding: 2.5rem 0 6rem; }
+
+    .portfolio-category { display: none; }
+    .portfolio-category.active { display: block; }
+
+    .portfolio-category-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ===========================
+       PEEK CAROUSEL
+       =========================== */
+    .peek-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+    }
+
+    .peek-track {
+      display: flex;
+      gap: 10px;
+      /* don't allow track to shrink or wrap */
+    }
+
+    /* Cover — takes all space minus the peek columns */
+    .peek-item {
+      flex-shrink: 0;
+      position: relative;
+      height: 420px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--color-gray-light);
+    }
+
+    .peek-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .peek-item--cover {
+      /* width set via JS / inline so it fills the visible area */
+      flex: 1 1 auto;
+    }
+
+    .peek-item--peek {
+      flex: 0 0 72px;   /* only ~72px of the image is visible */
+      opacity: 0.65;
+      transition: opacity var(--transition);
+    }
+
+    .peek-item--hidden {
+      display: none; /* exists for lightbox only */
+    }
+
+    .peek-carousel:hover .peek-item--cover img { transform: scale(1.03); }
+    .peek-carousel:hover .peek-item--peek { opacity: 0.85; }
+
+    /* Cover overlay */
+    .peek-cover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      gap: 0.4rem;
+      pointer-events: none;
+    }
+    .peek-cover-label {
+      color: var(--color-white);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .peek-count-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 50px;
+      width: fit-content;
+    }
+
+    /* Peek label on side items */
+    .peek-item--peek::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.25) 0%, transparent 100%);
+    }
+
+    @media (max-width: 599px) {
+      .peek-item { height: 280px; }
+      .peek-item--peek { flex: 0 0 50px; }
+    }
+
+    /* ===========================
+       LIGHTBOX WITH ARROWS
+       =========================== */
+    .portfolio-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 9000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .portfolio-lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .plb-counter {
+      position: absolute;
+      top: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .plb-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: var(--color-white);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .plb-close:hover { background: rgba(255,255,255,0.2); }
+
+    .plb-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0 5rem;
+      gap: 1rem;
+    }
+
+    .plb-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: var(--radius);
+      transform: scale(0.94);
+      transition: transform 0.3s ease, opacity 0.2s ease;
+      user-select: none;
+    }
+    .portfolio-lightbox.open .plb-img { transform: scale(1); }
+
+    .plb-nav {
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: var(--color-white);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .plb-nav:hover { background: rgba(78,195,232,0.55); }
+    .plb-nav:disabled { opacity: 0.2; cursor: default; }
+
+    .plb-caption {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.65);
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    /* Thumbnails strip */
+    .plb-thumbs {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      max-width: 90vw;
+      overflow-x: auto;
+      padding: 0 0.5rem;
+      scrollbar-width: none;
+    }
+    .plb-thumbs::-webkit-scrollbar { display: none; }
+
+    .plb-thumb {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      overflow: hidden;
+      opacity: 0.45;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: opacity var(--transition), border-color var(--transition);
+    }
+    .plb-thumb.active {
+      opacity: 1;
+      border-color: var(--color-primary);
+    }
+    .plb-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    @media (max-width: 599px) {
+      .plb-body { padding: 0 3.5rem; }
+      .plb-nav { width: 38px; height: 38px; }
+      .plb-thumbs { bottom: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html#inicio" class="nav-logo">
+        <div class="logo-dual">
+          <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
+          <img src="images/logo.svg" alt="Printasy 3D" class="logo-img logo-svg">
+        </div>
+        <span class="logo-fallback">Printasy<span class="logo-accent">3D</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="index.html#nosotros" class="nav-link">Nosotros</a></li>
+        <li><a href="index.html#servicios" class="nav-link">Servicios</a></li>
+        <li><a href="index.html#galeria" class="nav-link">Galería</a></li>
+        <li><a href="index.html#contacto" class="nav-link nav-cta">Cotiza ahora</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <div class="portfolio-hero">
+    <div class="container">
+      <a href="index.html#galeria" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver a la galería
+      </a>
+      <h1>Nuestro <span style="color:var(--color-primary)">Portafolio</span></h1>
+      <p>Explora nuestras piezas por categoría</p>
+    </div>
+  </div>
+
+  <!-- ===== TABS ===== -->
+  <div class="portfolio-tabs">
+    <button class="tab-btn active" data-tab="funcionales">Piezas Funcionales</button>
+    <button class="tab-btn" data-tab="decorativas">Piezas Decorativas</button>
+    <button class="tab-btn" data-tab="varios">Varios</button>
+  </div>
+
+  <!-- ===== CATEGORIES ===== -->
+  <section class="portfolio-section">
+    <div class="container">
+
+      <!-- FUNCIONALES -->
+      <div class="portfolio-category active" id="cat-funcionales">
+        <p class="portfolio-category-title">Piezas Funcionales</p>
+        <div class="peek-carousel" data-category="funcionales">
+          <div class="peek-track">
+            <!-- Cover -->
+            <figure class="peek-item peek-item--cover" data-index="0" data-label="Llaveros personalizados">
+              <img src="images/llaveros.jpg" alt="Llaveros personalizados impresos en 3D">
+              <div class="peek-cover-overlay">
+                <span class="peek-cover-label">Llaveros personalizados</span>
+                <span class="peek-count-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  2 fotos · Ver todas
+                </span>
+              </div>
+            </figure>
+            <!-- Peek -->
+            <figure class="peek-item peek-item--peek" data-index="1" data-label="Tacón de moda">
+              <img src="images/tacon.png" alt="Tacón impreso en 3D">
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- DECORATIVAS -->
+      <div class="portfolio-category" id="cat-decorativas">
+        <p class="portfolio-category-title">Piezas Decorativas</p>
+        <div class="peek-carousel" data-category="decorativas">
+          <div class="peek-track">
+            <!-- Cover -->
+            <figure class="peek-item peek-item--cover" data-index="0" data-label="Avión decorativo">
+              <img src="images/avion.jpg" alt="Avión decorativo impreso en 3D">
+              <div class="peek-cover-overlay">
+                <span class="peek-cover-label">Avión decorativo</span>
+                <span class="peek-count-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  7 fotos · Ver todas
+                </span>
+              </div>
+            </figure>
+            <!-- Peek 1 -->
+            <figure class="peek-item peek-item--peek" data-index="1" data-label="Bulbasaur coleccionable">
+              <img src="images/bulbasaur.jpg" alt="Bulbasaur coleccionable impreso en 3D">
+            </figure>
+            <!-- Peek 2 -->
+            <figure class="peek-item peek-item--peek" data-index="2" data-label="Coraline figura">
+              <img src="images/coraline.jpg" alt="Figura de Coraline impresa en 3D">
+            </figure>
+            <!-- Hidden (lightbox only) -->
+            <figure class="peek-item peek-item--hidden" data-index="3" data-label="Demogorgon figura">
+              <img src="images/demogorgon.jpg" alt="Demogorgon impreso en 3D">
+            </figure>
+            <figure class="peek-item peek-item--hidden" data-index="4" data-label="Esferas decorativas">
+              <img src="images/esferas.jpg" alt="Esferas decorativas impresas en 3D">
+            </figure>
+            <figure class="peek-item peek-item--hidden" data-index="5" data-label="Gato decorativo">
+              <img src="images/gato.jpg" alt="Gato decorativo impreso en 3D">
+            </figure>
+            <figure class="peek-item peek-item--hidden" data-index="6" data-label="Jack Skellington">
+              <img src="images/jack.jpg" alt="Jack Skellington impreso en 3D">
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- VARIOS -->
+      <div class="portfolio-category" id="cat-varios">
+        <p class="portfolio-category-title">Varios</p>
+        <div class="peek-carousel" data-category="varios">
+          <div class="peek-track">
+            <figure class="peek-item peek-item--cover" data-index="0" data-label="Entrega personalizada">
+              <img src="images/entrega.jpg" alt="Entrega de pieza personalizada">
+              <div class="peek-cover-overlay">
+                <span class="peek-cover-label">Entrega personalizada</span>
+                <span class="peek-count-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  1 foto · Ver
+                </span>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="portfolio-lightbox" id="portfolioLightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+    <button class="plb-close" id="plbClose" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <span class="plb-counter" id="plbCounter"></span>
+    <div class="plb-body">
+      <button class="plb-nav" id="plbPrev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <img src="" alt="" id="plbImg" class="plb-img">
+      <button class="plb-nav" id="plbNext" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <div class="plb-thumbs" id="plbThumbs"></div>
+    <p class="plb-caption" id="plbCaption"></p>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html#inicio" class="nav-logo footer-logo">
+          <div class="logo-dual">
+            <img src="images/logo.svg" alt="Printasy 3D" class="logo-img logo-svg">
+            <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
+          </div>
+          <span class="logo-fallback">Printasy<span class="logo-accent">3D</span></span>
+        </a>
+        <p class="footer-copy">© 2025 Printasy 3D · Guadalajara, Jalisco</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/printasy_3d" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://tiktok.com/@printasy3d" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.86 4.86 0 0 1-1.01-.06z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+    });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    }));
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.portfolio-category').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('cat-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Lightbox
+    const lightbox  = document.getElementById('portfolioLightbox');
+    const plbImg    = document.getElementById('plbImg');
+    const plbCaption= document.getElementById('plbCaption');
+    const plbCounter= document.getElementById('plbCounter');
+    const plbThumbs = document.getElementById('plbThumbs');
+    const plbPrev   = document.getElementById('plbPrev');
+    const plbNext   = document.getElementById('plbNext');
+    let items = [];
+    let idx   = 0;
+
+    function openLightbox(allItems, startIdx) {
+      items = allItems;
+      idx   = startIdx;
+      buildThumbs();
+      render();
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function render() {
+      const item = items[idx];
+      const img  = item.querySelector('img');
+      // Fade trick
+      plbImg.style.opacity = '0';
+      plbImg.src = img.src;
+      plbImg.alt = img.alt;
+      plbCaption.textContent = item.dataset.label || '';
+      plbCounter.textContent = (idx + 1) + ' / ' + items.length;
+      plbPrev.disabled = false;
+      plbNext.disabled = false;
+      setTimeout(() => { plbImg.style.opacity = '1'; }, 30);
+      // Update thumbs
+      plbThumbs.querySelectorAll('.plb-thumb').forEach((t, i) => {
+        t.classList.toggle('active', i === idx);
+      });
+      // Scroll active thumb into view
+      const activeThumb = plbThumbs.children[idx];
+      if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    function buildThumbs() {
+      plbThumbs.innerHTML = '';
+      items.forEach((item, i) => {
+        const img = item.querySelector('img');
+        const thumb = document.createElement('div');
+        thumb.className = 'plb-thumb' + (i === idx ? ' active' : '');
+        const tImg = document.createElement('img');
+        tImg.src = img.src;
+        tImg.alt = img.alt;
+        thumb.appendChild(tImg);
+        thumb.addEventListener('click', () => { idx = i; render(); });
+        plbThumbs.appendChild(thumb);
+      });
+    }
+
+    plbPrev.addEventListener('click', () => { idx = (idx - 1 + items.length) % items.length; render(); });
+    plbNext.addEventListener('click', () => { idx = (idx + 1) % items.length; render(); });
+    document.getElementById('plbClose').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft')  { idx = (idx - 1 + items.length) % items.length; render(); }
+      if (e.key === 'ArrowRight') { idx = (idx + 1) % items.length; render(); }
+    });
+
+    // Attach clicks to carousels — ALL figures (cover + peeks) clickable
+    document.querySelectorAll('.peek-carousel').forEach(carousel => {
+      const allFigures = Array.from(carousel.querySelectorAll('.peek-item'));
+      // Only cover and peek are visible; hidden ones are in lightbox only
+      carousel.querySelectorAll('.peek-item--cover, .peek-item--peek').forEach(fig => {
+        fig.addEventListener('click', () => {
+          const clickedIdx = parseInt(fig.dataset.index, 10);
+          openLightbox(allFigures, clickedIdx);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

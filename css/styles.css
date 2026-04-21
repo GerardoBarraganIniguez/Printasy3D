@@ -180,26 +180,21 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  text-decoration: none;
+  gap: 0.5rem;
 }
-.logo-brand-img {
-  height: 64px;
-  width: auto;
-  display: block;
-  flex-shrink: 0;
-}
-.logo-text-name {
-  font-size: 1.6rem;
+.logo-img { height: 56px; width: auto; }
+.logo-dual { display: flex; align-items: center; gap: 6px; }
+.logo-fallback {
+  display: none;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-white);
   letter-spacing: -0.02em;
-  white-space: nowrap;
 }
-.logo-text-3d {
-  color: var(--color-primary);
-}
-.logo-fallback { display: none; }
+.logo-fallback .logo-accent { color: var(--color-primary); }
+
+/* Show fallback by default if no logo image exists */
+.nav-logo .logo-img { display: block; }
 
 .nav-links {
   display: flex;
@@ -267,18 +262,25 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
   background-size: cover;
   background-position: center;
   background-color: #1a2a3a;
-  transform: scale(1.05);
+  /* transform: scale(0.95); */
   transition: transform 8s ease;
   overflow: hidden;
 }
-.hero-gif {
+.hero-gif,
+.hero-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
 }
-.hero:hover .hero-bg { transform: scale(1); }
+.hero-video--mobile { display: none; }
+
+@media (max-width: 767px) {
+  .hero-video--desktop { display: none; }
+  .hero-video--mobile { display: block; }
+}
+
 
 .hero-overlay {
   position: absolute;
@@ -560,6 +562,21 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
   color: var(--color-gray-mid);
   font-size: 0.85rem;
   font-weight: 500;
+}
+
+.gallery-cta {
+  text-align: center;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.gallery-cta-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  margin: 0;
 }
 
 
@@ -923,43 +940,4 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
   :root { --container-max: 1280px; }
   h1 { font-size: 6rem; }
   .section { padding: 8rem 0; }
-}
-
-/* ===========================
-   ANIMACIÓN IMPRESORA 3D (HERO)
-   =========================== */
-.printer-anim {
-  position: absolute;
-  right: 6%;
-  bottom: 8%;
-  width: 320px;
-  opacity: 0.55;
-  pointer-events: none;
-  filter: drop-shadow(0 0 24px rgba(78,195,232,0.35));
-}
-.printer-svg { width: 100%; height: auto; }
-
-@media (max-width: 900px) {
-  .printer-anim { width: 200px; right: 2%; opacity: 0.35; }
-}
-@media (max-width: 599px) {
-  .printer-anim { display: none; }
-}
-
-/* ===========================
-   ANIMACIÓN FILAMENTO (NOSOTROS)
-   =========================== */
-.filament-anim-wrapper {
-  width: 100%;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at 40% 35%, #1a3a50 0%, #0d1b2a 70%);
-  border-radius: var(--radius);
-}
-.filament-svg {
-  width: 85%;
-  height: auto;
-  filter: drop-shadow(0 0 20px rgba(78,195,232,0.4));
 }

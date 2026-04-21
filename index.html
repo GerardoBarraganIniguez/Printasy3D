@@ -25,8 +25,11 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#inicio" class="nav-logo">
-        <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-brand-img">
-        <span class="logo-text-name">Printasy <span class="logo-text-3d">3D</span></span>
+        <div class="logo-dual">
+          <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
+          <img src="images/logo.svg" alt="Printasy 3D" class="logo-img logo-svg">
+        </div>
+        <span class="logo-fallback">Printasy<span class="logo-accent">3D</span></span>
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#inicio" class="nav-link">Inicio</a></li>
@@ -43,48 +46,10 @@
 
   <!-- ===== HERO ===== -->
   <section id="inicio" class="hero">
-    <div class="hero-bg" style="background-image: url('images/hero-bg.jpg')">
-      <!-- Animación CSS de impresora 3D -->
-      <div class="printer-anim">
-        <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" class="printer-svg">
-          <!-- Base de la impresora -->
-          <rect x="40" y="200" width="240" height="18" rx="4" fill="#1a2a3a" stroke="#4ec3e8" stroke-width="1.5"/>
-          <!-- Cuerpo -->
-          <rect x="60" y="100" width="200" height="100" rx="6" fill="#0d1b2a" stroke="#4ec3e8" stroke-width="1.5"/>
-          <!-- Pantalla -->
-          <rect x="75" y="115" width="55" height="35" rx="3" fill="#4ec3e8" opacity="0.15" stroke="#4ec3e8" stroke-width="1"/>
-          <rect x="78" y="118" width="49" height="29" rx="2" fill="#4ec3e8" opacity="0.3"/>
-          <!-- Portafilamento -->
-          <circle cx="260" cy="85" r="28" fill="none" stroke="#4ec3e8" stroke-width="2"/>
-          <circle cx="260" cy="85" r="10" fill="#0d1b2a" stroke="#4ec3e8" stroke-width="1.5"/>
-          <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 260 85" to="360 260 85" dur="4s" repeatCount="indefinite" additive="sum"/>
-          <!-- Rails horizontales -->
-          <line x1="60" y1="88" x2="230" y2="88" stroke="#4ec3e8" stroke-width="2" opacity="0.5"/>
-          <!-- Cabezal de impresión -->
-          <g class="print-head">
-            <rect x="110" y="80" width="40" height="22" rx="3" fill="#4ec3e8" opacity="0.9"/>
-            <polygon points="125,102 135,102 130,112" fill="#4ec3e8"/>
-            <animateMotion dur="3s" repeatCount="indefinite" path="M0,0 L60,0 L60,0 L0,0"/>
-          </g>
-          <!-- Cama de impresión -->
-          <rect x="80" y="178" width="160" height="8" rx="2" fill="#4ec3e8" opacity="0.4" stroke="#4ec3e8" stroke-width="1"/>
-          <!-- Objeto imprimiéndose (crece) -->
-          <g>
-            <rect x="130" y="158" width="60" height="20" rx="2" fill="#4ec3e8" opacity="0.6">
-              <animate attributeName="height" values="0;4;8;12;16;20;16;12;8;4;0" dur="6s" repeatCount="indefinite"/>
-              <animate attributeName="y" values="178;174;170;166;162;158;162;166;170;174;178" dur="6s" repeatCount="indefinite"/>
-            </rect>
-            <!-- Líneas de capas -->
-            <line x1="130" y1="174" x2="190" y2="174" stroke="#fff" stroke-width="0.5" opacity="0.4"/>
-            <line x1="130" y1="170" x2="190" y2="170" stroke="#fff" stroke-width="0.5" opacity="0.4"/>
-            <line x1="130" y1="166" x2="190" y2="166" stroke="#fff" stroke-width="0.5" opacity="0.4"/>
-          </g>
-          <!-- Punto de extrusión parpadeante -->
-          <circle cx="130" cy="112" r="3" fill="#fff">
-            <animate attributeName="opacity" values="1;0.2;1" dur="0.8s" repeatCount="indefinite"/>
-          </circle>
-        </svg>
-      </div>
+    <div class="hero-bg">
+      <video class="hero-video hero-video--desktop" src="images/background.mp4" autoplay muted loop playsinline></video>
+      <video class="hero-video hero-video--mobile" src="images/celular.mp4" autoplay muted loop playsinline></video>
+      <!-- <img src="images/hero-printer.gif" alt="Impresora 3D imprimiendo" class="hero-gif" onerror="this.style.display='none'; this.parentElement.style.backgroundImage='url(images/hero-bg.jpg)'"> -->
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -154,31 +119,7 @@
         </div>
         <div class="about-image animate-on-scroll" data-direction="right">
           <div class="about-img-wrapper">
-            <!-- Animación CSS de rollo de filamento girando -->
-            <div class="filament-anim-wrapper">
-              <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" class="filament-svg">
-                <!-- Rollo exterior -->
-                <circle cx="150" cy="150" r="120" fill="#1a2a3a" stroke="#4ec3e8" stroke-width="3"/>
-                <!-- Anillos de filamento girando -->
-                <g style="transform-origin:150px 150px">
-                  <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="6s" repeatCount="indefinite"/>
-                  <circle cx="150" cy="150" r="105" fill="none" stroke="#4ec3e8" stroke-width="8" stroke-dasharray="25 15" opacity="0.7"/>
-                  <circle cx="150" cy="150" r="88" fill="none" stroke="#2d8fad" stroke-width="8" stroke-dasharray="20 20" opacity="0.6"/>
-                  <circle cx="150" cy="150" r="71" fill="none" stroke="#4ec3e8" stroke-width="7" stroke-dasharray="18 22" opacity="0.5"/>
-                  <circle cx="150" cy="150" r="55" fill="none" stroke="#2d8fad" stroke-width="6" stroke-dasharray="15 18" opacity="0.4"/>
-                </g>
-                <!-- Núcleo del rollo -->
-                <circle cx="150" cy="150" r="35" fill="#0d1b2a" stroke="#4ec3e8" stroke-width="2.5"/>
-                <circle cx="150" cy="150" r="15" fill="#4ec3e8" opacity="0.2"/>
-                <circle cx="150" cy="150" r="8" fill="#4ec3e8" opacity="0.5"/>
-                <!-- Brillos -->
-                <circle cx="110" cy="100" r="6" fill="white" opacity="0.15"/>
-                <circle cx="95" cy="115" r="3" fill="white" opacity="0.1"/>
-                <!-- Etiqueta del material -->
-                <text x="150" y="145" text-anchor="middle" fill="#4ec3e8" font-size="13" font-family="Inter,sans-serif" font-weight="700">PLA</text>
-                <text x="150" y="162" text-anchor="middle" fill="white" font-size="10" font-family="Inter,sans-serif" opacity="0.7">1.75mm</text>
-              </svg>
-            </div>
+            <!-- <img src="images/filament-spin.gif" alt="Rollo de filamento Printasy 3D" onerror="this.src='images/about-printer.jpg'"> -->
             <div class="about-img-badge">
               <strong>Bambu Lab</strong>
               <span>A1 + P1S Combo</span>
@@ -231,7 +172,7 @@
     <div class="services-banner animate-on-scroll">
       <div class="container">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        <p>¿Quieres un acabado perfecto? Ofrecemos <strong>lijado y pintura profesional</strong> para tus piezas.</p>
+        <p><strong>¿Quieres piezas Únicas?</strong> en <strong>Printasy </strong>tus ideas reciben el mejor servicio de impresión 3D.</p>
       </div>
     </div>
   </section>
@@ -285,6 +226,10 @@
           <img src="images/entrega.jpg" alt="Entrega de pieza personalizada" loading="lazy" onerror="this.parentElement.classList.add('img-placeholder')">
           <div class="gallery-overlay"><span>Entrega personalizada</span></div>
         </figure>
+      </div>
+      <div class="gallery-cta animate-on-scroll">
+        <p class="gallery-cta-text">¿Quieres ver más de nuestro trabajo?</p>
+        <a href="portfolio.html" class="btn btn-primary">Portafolio aquí →</a>
       </div>
     </div>
   </section>
@@ -368,15 +313,13 @@
     <div class="container">
       <div class="footer-inner">
         <a href="#inicio" class="nav-logo footer-logo">
-          <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-brand-img">
-          <span class="logo-text-name">Printasy <span class="logo-text-3d">3D</span></span>
-        </a>
-        <p class="footer-copy">© 2025 Printasy 3D — Guadalajara, Jalisco</p>
-        <div class="footer-social">
-          <a href="https://instagram.com/printasy_3d" target="_blank" rel="noopener" aria-label="Instagram Printasy 3D">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <a href="https://tiktok.com/@printasy3d" target="_blank" rel="noopener" aria-label="TikTok Printasy 3D">
+          <div class="logo-dual">
+            <img src="images/logo.svg" alt="Printasy 3D" class="logo-img logo-svg">
+            <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
+          </div>
+          <span class="logo-fallback">Printasy<span class="logo-accent">3D</span></span>
+text-3d">3D</span></span>
+lank" rel="noopener" aria-label="TikTok Printasy 3D">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.86 4.86 0 0 1-1.01-.06z"/></svg>
           </a>
         </div>
