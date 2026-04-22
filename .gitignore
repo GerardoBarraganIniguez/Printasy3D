@@ -1,0 +1,16 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+*.log
+
+# Vercel
+.vercel
+
+# Configuración con claves — NUNCA commitear
+js/config.js
+.env
+.env.local
+.env.*.local
+
+# Documentos internos
+printasy-info.md

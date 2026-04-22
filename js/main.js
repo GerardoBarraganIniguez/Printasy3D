@@ -1,14 +1,8 @@
-// ============================================================
-// CONFIG — Reemplaza estos valores con los de tu cuenta EmailJS
-// ============================================================
-const EMAILJS_PUBLIC_KEY  = 'TU_PUBLIC_KEY';
-const EMAILJS_SERVICE_ID  = 'TU_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'TU_TEMPLATE_ID';
-
 // ===== EMAILJS INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-  if (typeof emailjs !== 'undefined') {
-    emailjs.init(EMAILJS_PUBLIC_KEY);
+  const cfg = window.PRINTASY_CONFIG?.emailjs;
+  if (typeof emailjs !== 'undefined' && cfg?.publicKey) {
+    emailjs.init(cfg.publicKey);
   }
   initNavbar();
   initMobileMenu();
@@ -140,16 +134,17 @@ function initContactForm() {
     submitBtn.classList.add('loading');
     submitBtn.disabled = true;
 
+    const cfg = window.PRINTASY_CONFIG?.emailjs;
     const templateParams = {
-      from_name: document.getElementById('name').value.trim(),
+      name:      document.getElementById('name').value.trim(),
       phone:     document.getElementById('phone').value.trim(),
       message:   document.getElementById('message').value.trim(),
-      reply_to:  'dprintasy@gmail.com',
+      reply_to:  window.PRINTASY_CONFIG?.contactEmail ?? '',
     };
 
     try {
-      if (typeof emailjs === 'undefined') throw new Error('EmailJS no está configurado.');
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      if (typeof emailjs === 'undefined' || !cfg?.serviceId) throw new Error('EmailJS no está configurado.');
+      await emailjs.send(cfg.serviceId, cfg.templateId, templateParams);
       form.style.display = 'none';
       formSuccess.style.display = 'block';
     } catch (err) {

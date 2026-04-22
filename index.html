@@ -6,9 +6,25 @@
   <title>Printasy 3D | Impresión 3D en Guadalajara, Jalisco</title>
   <meta name="description" content="Servicio profesional de impresión 3D en Guadalajara, Jalisco. Piezas funcionales, decorativas y personalizadas. PLA, PETG, ASA, ABS. ¡Cotiza ahora!">
   <meta name="keywords" content="impresión 3D Guadalajara, impresoras 3D, PLA, PETG, piezas personalizadas, Jalisco, Bambu Lab">
+  <meta name="robots" content="index, follow">
+  <meta name="geo.region" content="MX-JAL">
+  <meta name="geo.placename" content="Guadalajara, Jalisco">
+  <link rel="icon" href="/images/logoPrintasy.png" type="image/png">
+  <link rel="canonical" href="https://TU-DOMINIO.vercel.app/">
+  <link rel="alternate" hreflang="es-MX" href="https://TU-DOMINIO.vercel.app/">
   <meta property="og:title" content="Printasy 3D — Impresión 3D Guadalajara">
   <meta property="og:description" content="Servicio profesional de impresión 3D en Guadalajara. Piezas funcionales y decorativas a medida.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://TU-DOMINIO.vercel.app/images/logoPrintasy.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:url" content="https://TU-DOMINIO.vercel.app/">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Printasy 3D">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Printasy 3D — Impresión 3D Guadalajara">
+  <meta name="twitter:description" content="Servicio profesional de impresión 3D en Guadalajara. Piezas funcionales y decorativas a medida.">
+  <meta name="twitter:image" content="https://TU-DOMINIO.vercel.app/images/logoPrintasy.png">
   <meta name="theme-color" content="#4ec3e8">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -127,7 +143,7 @@
         </div>
         <div class="about-image animate-on-scroll" data-direction="right">
           <div class="about-img-wrapper">
-            <!-- <img src="images/filament-spin.gif" alt="Rollo de filamento Printasy 3D" onerror="this.src='images/about-printer.jpg'"> -->
+            <video src="images/filamento.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block;"></video>
             <div class="about-img-badge">
               <strong>Bambu Lab</strong>
               <span>A1 + P1S Combo</span>
@@ -324,7 +340,7 @@
             <img src="images/logoPrintasy.png" alt="Printasy 3D" class="logo-img logo-brand">
           <span class="logo-fallback">Printasy<span class="logo-accent">&nbsp;3D</span></span>
         </a>
-        <p class="footer-copy">© 2025 Printasy 3D · Guadalajara, Jalisco</p>
+        <p class="footer-copy">© 2026 Printasy 3D · Guadalajara, Jalisco</p>
         <div class="footer-social">
           <a href="https://instagram.com/printasy_3d" target="_blank" rel="noopener" aria-label="Instagram Printasy 3D">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -347,6 +363,58 @@
     </svg>
   </a>
 
-  <script src="js/main.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/main.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Printasy 3D",
+    "description": "Servicio profesional de impresión 3D en Guadalajara, Jalisco. Piezas funcionales, decorativas y personalizadas en PLA, PETG, ASA y ABS.",
+    "url": "https://TU-DOMINIO.vercel.app/",
+    "logo": "https://TU-DOMINIO.vercel.app/images/logoPrintasy.png",
+    "image": "https://TU-DOMINIO.vercel.app/images/logoPrintasy.png",
+    "telephone": "+523339487224",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Guadalajara",
+      "addressRegion": "Jalisco",
+      "addressCountry": "MX"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "20.6597",
+      "longitude": "-103.3496"
+    },
+    "sameAs": [
+      "https://instagram.com/printasy_3d",
+      "https://tiktok.com/@printasy3d"
+    ],
+    "priceRange": "$$",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de Impresión 3D",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Piezas Funcionales",
+            "description": "Cajas de joyería, partes de automóvil, porta celulares, organizadores de escritorio, bases de exhibición y contramoldes."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Piezas Decorativas",
+            "description": "Macetas, decoración del hogar, figuras de videojuegos, figuras de animales y arte personalizado."
+          }
+        }
+      ]
+    }
+  }
+  </script>
 </body>
 </html>
