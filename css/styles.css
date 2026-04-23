@@ -164,13 +164,13 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
   align-items: center;
   gap: 0.5rem;
 }
-.logo-img { height: 80px; width: auto; }
+.logo-img { height: 40px; width: auto; }
 
 @media (min-width: 900px) {
   .logo-brand {
-    transform: scale(1.45);
+    transform: scale(1);
     transform-origin: left center;
-    margin-right: 1.5rem;
+    margin-right: 0.8rem;
   }
 }
 .logo-fallback {
