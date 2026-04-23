@@ -284,7 +284,7 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
 
 .hero-label {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
