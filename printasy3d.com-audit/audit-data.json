@@ -1,0 +1,333 @@
+{
+  "summary": {
+    "health_score": 54,
+    "business_type": "Local Service — Impresión 3D bajo pedido, Guadalajara MX",
+    "top_findings": [
+      "Sin Google Business Profile verificado (factor #1 para Local Pack)",
+      "Headers de seguridad críticos ausentes (CSP, X-Frame-Options, etc.)",
+      "LCP afectado por videos hero sin poster ni preload explícito",
+      "Sitio de una sola página limita superficie indexable en Google",
+      "Sin reseñas ni testimonios — E-E-A-T Trust bajo"
+    ],
+    "quick_wins": [
+      "Agregar headers de seguridad en vercel.json (5 headers, 15 min de trabajo)",
+      "Corregir alt texts genéricos en 6 imágenes de galería",
+      "Agregar `openingHours` y `areaServed` al schema existente",
+      "Agregar `poster` y dimensiones a los videos del hero",
+      "Corregir typos: 'Sacanpuntas' → 'Sacapuntas', tildes faltantes"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 58,
+      "what_works": [
+        "robots.txt correcto",
+        "HTTPS + HSTS",
+        "Canonicals y hreflang presentes",
+        "CDN Vercel con Brotli"
+      ],
+      "findings": [
+        {
+          "title": "Sin headers de seguridad HTTP",
+          "severity": "Critical",
+          "description": "Faltan: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Permissions-Policy, Referrer-Policy.",
+          "recommendation": "Agregar en vercel.json bajo la clave `headers`. Ejemplo de CSP básico para sitio estático con EmailJS y Google Fonts."
+        },
+        {
+          "title": "Sitio de anclas — baja superficie indexable",
+          "severity": "High",
+          "description": "Las secciones son anclas (#inicio, #servicios, etc.), no páginas independientes. Google no las indexa por separado.",
+          "recommendation": "Crear páginas HTML separadas para Servicios y Materiales para capturar keywords específicas."
+        },
+        {
+          "title": "Sitemap con lastmod desactualizado",
+          "severity": "Medium",
+          "description": "Figura 2026-04-21 pero el servidor reporta Last-Modified: 2026-08-23.",
+          "recommendation": "Actualizar lastmod en sitemap.xml a la fecha real de última modificación."
+        },
+        {
+          "title": "Sin llms.txt",
+          "severity": "Medium",
+          "description": "No hay archivo de instrucciones para crawlers de LLMs.",
+          "recommendation": "Crear /llms.txt con descripción del negocio, servicios y cómo citar el sitio."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality & E-E-A-T",
+      "score": 48,
+      "what_works": [
+        "Título y meta description con keywords locales y CTA",
+        "H1 único y relevante",
+        "Equipos específicos mencionados (Bambu Lab)",
+        "Galería con piezas reales"
+      ],
+      "findings": [
+        {
+          "title": "Sin blog ni contenido educativo",
+          "severity": "High",
+          "description": "El sitio no puede rankear para búsquedas informacionales. Mercado potencial sin capturar.",
+          "recommendation": "Iniciar blog con 4-6 artículos: '¿Qué material elegir para impresión 3D?', 'Tiempos de entrega en Guadalajara', etc."
+        },
+        {
+          "title": "Sin testimonios o reseñas de clientes",
+          "severity": "High",
+          "description": "Google E-E-A-T penaliza sitios sin prueba social. Los usuarios buscan validación antes de cotizar.",
+          "recommendation": "Agregar sección de testimonios con nombre y foto de cliente (con permiso). Mínimo 3-5 reseñas reales."
+        },
+        {
+          "title": "Alt texts genéricos en imágenes de galería",
+          "severity": "Medium",
+          "description": "6 imágenes con alt texts como 'Funko', 'sacapuntas', 'expositor', 'lamparas' sin contexto SEO.",
+          "recommendation": "Renombrar a formato: '[Nombre pieza] impreso en 3D en Guadalajara' para capturar búsquedas en Google Images."
+        },
+        {
+          "title": "Typos y errores tipográficos",
+          "severity": "Low",
+          "description": "'Sacanpuntas' en lugar de 'Sacapuntas', 'Lamparas' sin tilde, mayúscula incorrecta en 'piezas Únicas'.",
+          "recommendation": "Correcciones directas en index.html y portfolio.html."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 68,
+      "what_works": [
+        "Title tag con keyword local + marca",
+        "Meta description con CTA",
+        "Estructura H1 > H2 coherente",
+        "OG tags y Twitter Cards completos"
+      ],
+      "findings": [
+        {
+          "title": "OG image es el logo (512x512)",
+          "severity": "Medium",
+          "description": "Para Twitter Card 'summary_large_image', la imagen debe ser 1200x630px. El logo cuadrado se verá mal compartido en redes.",
+          "recommendation": "Crear imagen OG de 1200x630px con foto de pieza impresa + logo Printasy 3D."
+        },
+        {
+          "title": "Sin keywords en headings de portafolio",
+          "severity": "Medium",
+          "description": "El H1 de portfolio.html es genérico ('Portafolio'). No captura keywords como 'figuras impresas en 3D Guadalajara'.",
+          "recommendation": "Cambiar a 'Portafolio de Impresión 3D — Printasy 3D Guadalajara'."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 62,
+      "what_works": [
+        "JSON-LD LocalBusiness con campos principales",
+        "GeoCoordinates correctas",
+        "sameAs con redes sociales",
+        "hasOfferCatalog con servicios"
+      ],
+      "findings": [
+        {
+          "title": "Sin AggregateRating / Review schema",
+          "severity": "High",
+          "description": "Sin reseñas en schema, Google no puede mostrar estrellas en los resultados locales.",
+          "recommendation": "Agregar reseñas reales con schema Review + AggregateRating una vez se tenga la sección de testimonios."
+        },
+        {
+          "title": "Sin openingHours en schema",
+          "severity": "High",
+          "description": "LocalBusiness sin horarios no se considera completo por Google.",
+          "recommendation": "Agregar: 'openingHoursSpecification' con días y horas de atención."
+        },
+        {
+          "title": "Sin FAQPage schema",
+          "severity": "Medium",
+          "description": "Oportunidad de rich result en SERP con preguntas frecuentes.",
+          "recommendation": "Agregar sección FAQ al sitio + schema FAQPage."
+        },
+        {
+          "title": "Sin areaServed",
+          "severity": "Medium",
+          "description": "No se especifican las colonias/municipios con cobertura de entrega.",
+          "recommendation": "Agregar: 'areaServed': ['Guadalajara', 'Zapopan', 'Tlaquepaque', 'Tonalá']"
+        }
+      ]
+    },
+    {
+      "name": "Performance (Core Web Vitals)",
+      "score": 45,
+      "what_works": [
+        "Lazy loading en imágenes",
+        "Brotli compression en Vercel",
+        "preconnect para Google Fonts",
+        "defer en EmailJS script",
+        "WebP en imágenes nuevas"
+      ],
+      "findings": [
+        {
+          "title": "Videos hero sin poster — LCP crítico",
+          "severity": "Critical",
+          "description": "Dos videos autoplay sin atributo poster. El LCP se bloquea esperando el primer frame del video.",
+          "recommendation": "Agregar poster='images/hero-poster.jpg' a cada video. Crear imágenes estáticas de 1920x1080 del primer frame."
+        },
+        {
+          "title": "Imágenes de galería sin width/height",
+          "severity": "High",
+          "description": "Sin dimensiones declaradas el navegador no puede reservar espacio, causando CLS.",
+          "recommendation": "Agregar width y height a todos los <img> de la galería."
+        },
+        {
+          "title": "Imágenes JPEG sin convertir a WebP",
+          "severity": "High",
+          "description": "6 imágenes JPEG: avion.jpg, bulbasaur.jpg, coraline.jpg, demogorgon.jpg, gato.jpg, jack.jpg.",
+          "recommendation": "Convertir a WebP con cwebp -q 85. Estimado: 30-50% ahorro de bytes."
+        },
+        {
+          "title": "Google Fonts cargada como red request",
+          "severity": "Medium",
+          "description": "Fuente Inter desde fonts.googleapis.com añade latencia en cada visita nueva.",
+          "recommendation": "Self-host Inter con font-face local o usar la variable CSS de Inter del sistema."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 35,
+      "what_works": [
+        "Terminología técnica correcta",
+        "Equipos específicos mencionados",
+        "Contenido en español con geo local"
+      ],
+      "findings": [
+        {
+          "title": "Sin llms.txt",
+          "severity": "High",
+          "description": "Sin archivo de instrucciones para LLMs, los modelos no tienen contexto de cómo citar el negocio.",
+          "recommendation": "Crear /llms.txt con: descripción del negocio, servicios, zona de cobertura, cómo cotizar."
+        },
+        {
+          "title": "Bajo volumen de contenido textual (~800 palabras)",
+          "severity": "High",
+          "description": "Los LLMs prefieren citar fuentes con contenido sustancial y específico.",
+          "recommendation": "Blog con artículos técnicos es la forma más efectiva de aumentar citabilidad."
+        },
+        {
+          "title": "Sin especificaciones técnicas detalladas",
+          "severity": "Medium",
+          "description": "Sin tablas de tolerancias, resolución de capa, temperaturas por material.",
+          "recommendation": "Agregar página de 'Materiales y Especificaciones' con datos técnicos concretos."
+        }
+      ]
+    },
+    {
+      "name": "Local SEO",
+      "score": 42,
+      "what_works": [
+        "Ciudad en title, meta, schema",
+        "GeoCoordinates correctas",
+        "meta geo.region configurado",
+        "Teléfono en schema"
+      ],
+      "findings": [
+        {
+          "title": "Sin Google Business Profile verificado",
+          "severity": "Critical",
+          "description": "No hay evidencia de GBP. Sin ficha de Google Maps verificada, el negocio no aparece en el Local Pack.",
+          "recommendation": "Crear y verificar Google Business Profile en business.google.com inmediatamente."
+        },
+        {
+          "title": "Teléfono no visible en el HTML",
+          "severity": "High",
+          "description": "El número está en schema pero no en el cuerpo visible de la página. Google cruza NAP en ambos.",
+          "recommendation": "Agregar número en sección de contacto de forma visible, con formato tel: link."
+        },
+        {
+          "title": "Sin horarios de atención",
+          "severity": "High",
+          "description": "Ni en HTML ni en schema. Impacta confianza y ranking local.",
+          "recommendation": "Agregar horarios en la sección de contacto y en schema openingHoursSpecification."
+        },
+        {
+          "title": "Sin Google Maps embed",
+          "severity": "Medium",
+          "description": "Mejora señales locales y ayuda a usuarios a encontrar la ubicación.",
+          "recommendation": "Embeber mapa con iframe de Google Maps en sección de contacto."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 65,
+      "what_works": [
+        "lazy loading en todas las imágenes",
+        "WebP para fotos nuevas",
+        "Alt text presente en la mayoría"
+      ],
+      "findings": [
+        {
+          "title": "Alt texts sin optimizar para SEO",
+          "severity": "Medium",
+          "description": "'Funko', 'sacapuntas', 'expositor', 'lamparas' — demasiado genéricos.",
+          "recommendation": "Formato: '[Descripción] impreso en 3D [ciudad si aplica]'. Ej: 'Funko personalizado impreso en 3D Guadalajara'."
+        },
+        {
+          "title": "JPEG sin convertir a WebP",
+          "severity": "High",
+          "description": "6 imágenes JPEG en galería principal.",
+          "recommendation": "Convertir con cwebp o Squoosh."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Fase 1: Correcciones Críticas",
+        "timeframe": "Semana 1",
+        "items": [
+          "Crear y verificar Google Business Profile",
+          "Agregar headers de seguridad en vercel.json (CSP, X-Frame-Options, etc.)",
+          "Agregar poster a videos hero del homepage",
+          "Agregar width/height a imágenes de galería"
+        ]
+      },
+      {
+        "name": "Fase 2: Mejoras de Alto Impacto",
+        "timeframe": "Semanas 2-3",
+        "items": [
+          "Convertir 6 imágenes JPEG a WebP",
+          "Mejorar alt texts de 6 imágenes con contexto SEO",
+          "Agregar openingHours y areaServed al schema",
+          "Hacer visible el teléfono en el HTML",
+          "Actualizar lastmod en sitemap.xml",
+          "Corregir typos (Sacanpuntas, Lamparas, mayúscula incorrecta)",
+          "Crear imagen OG 1200x630px",
+          "Crear /llms.txt"
+        ]
+      },
+      {
+        "name": "Fase 3: Contenido y Autoridad",
+        "timeframe": "Mes 2",
+        "items": [
+          "Agregar sección de testimonios con 3-5 reseñas reales",
+          "Crear página de Materiales y Especificaciones Técnicas",
+          "Agregar sección FAQ con schema FAQPage",
+          "Iniciar blog con 2-3 artículos iniciales",
+          "Agregar embed de Google Maps en contacto",
+          "Self-host fuente Inter"
+        ]
+      },
+      {
+        "name": "Fase 4: Monitoreo y Expansión",
+        "timeframe": "Mes 3 en adelante",
+        "items": [
+          "Configurar Google Search Console",
+          "Capturar baseline SEO con seo-drift para monitorear cambios",
+          "Crear páginas de servicios individuales para más superficie indexable",
+          "Estrategia de backlinks: directorios locales MX (Yelp, Hotfrog, etc.)"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

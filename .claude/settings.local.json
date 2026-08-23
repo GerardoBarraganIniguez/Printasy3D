@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo *)",
+      "WebFetch(domain:github.com)",
+      "Read(//tmp/claude-seo/**)",
+      "PowerShell(Test-Path *)",
+      "Bash(wslpath -w /tmp/claude-seo)",
+      "Bash(cygpath -w /tmp/claude-seo)",
+      "PowerShell(powershell -ExecutionPolicy Bypass -File \"$env:TEMP\\\\claude-seo\\\\install.ps1\")",
+      "PowerShell(git clone *)",
+      "Bash(curl -s https://www.printasy3d.com/)",
+      "Bash(curl -s https://www.printasy3d.com/robots.txt)",
+      "Bash(curl -s https://www.printasy3d.com/sitemap.xml)",
+      "Bash(curl -s https://www.printasy3d.com/portfolio.html)",
+      "Bash(curl -sI https://www.printasy3d.com/)"
+    ]
+  }
+}
