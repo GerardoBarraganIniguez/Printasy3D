@@ -1,17 +1,23 @@
 // ===== EMAILJS INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-  const cfg = window.PRINTASY_CONFIG?.emailjs;
-  if (typeof emailjs !== 'undefined' && cfg?.publicKey) {
-    emailjs.init(cfg.publicKey);
-  }
+  // Crítico — necesario antes del primer scroll/click
   initNavbar();
   initMobileMenu();
   initScrollAnimations();
-  initContactForm();
-  initGalleryLightbox();
-  initWhatsApp();
-  initInstagram();
-  initTiktok();
+
+  // Diferido — no bloquea el render inicial
+  const idle = window.requestIdleCallback ?? ((cb) => setTimeout(cb, 100));
+  idle(() => {
+    const cfg = window.PRINTASY_CONFIG?.emailjs;
+    if (typeof emailjs !== 'undefined' && cfg?.publicKey) {
+      emailjs.init(cfg.publicKey);
+    }
+    initContactForm();
+    initGalleryLightbox();
+    initWhatsApp();
+    initInstagram();
+    initTiktok();
+  });
 });
 
 
@@ -24,7 +30,8 @@ function initNavbar() {
     navbar.classList.toggle('scrolled', window.scrollY > 80);
   };
   window.addEventListener('scroll', toggleScrolled, { passive: true });
-  toggleScrolled();
+  // Diferir la lectura inicial de scrollY para no forzar reflow en el primer paint
+  requestAnimationFrame(toggleScrolled);
 
   // Resaltar sección activa
   const sections = document.querySelectorAll('section[id]');
@@ -198,25 +205,20 @@ function initGalleryLightbox() {
 }
 
 
-// ===== BOTÓN WHATSAPP — entrada con delay =====
+// ===== BOTONES FLOTANTES (WhatsApp, Instagram, TikTok) =====
 function initWhatsApp() {
   const btn = document.getElementById('whatsappBtn');
-  if (!btn) return;
-  setTimeout(() => btn.classList.add('visible'), 1500);
+  if (btn) setTimeout(() => btn.classList.add('visible'), 1500);
 }
 
-// ===== BOTÓN INSTAGRAM — entrada con delay =====
 function initInstagram() {
   const btn = document.getElementById('instagramBtn');
-  if (!btn) return;
-  setTimeout(() => btn.classList.add('visible'), 1500);
+  if (btn) setTimeout(() => btn.classList.add('visible'), 1500);
 }
 
-// ===== BOTÓN TIKTOK — entrada con delay =====
 function initTiktok() {
   const btn = document.getElementById('tiktokBtn');
-  if (!btn) return;
-  setTimeout(() => btn.classList.add('visible'), 1500);
+  if (btn) setTimeout(() => btn.classList.add('visible'), 1500);
 }
 
 
