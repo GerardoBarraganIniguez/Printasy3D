@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initGalleryLightbox();
   initWhatsApp();
+  initInstagram();
+  initTiktok();
 });
 
 
@@ -199,6 +201,20 @@ function initGalleryLightbox() {
 // ===== BOTÓN WHATSAPP — entrada con delay =====
 function initWhatsApp() {
   const btn = document.getElementById('whatsappBtn');
+  if (!btn) return;
+  setTimeout(() => btn.classList.add('visible'), 1500);
+}
+
+// ===== BOTÓN INSTAGRAM — entrada con delay =====
+function initInstagram() {
+  const btn = document.getElementById('instagramBtn');
+  if (!btn) return;
+  setTimeout(() => btn.classList.add('visible'), 1500);
+}
+
+// ===== BOTÓN TIKTOK — entrada con delay =====
+function initTiktok() {
+  const btn = document.getElementById('tiktokBtn');
   if (!btn) return;
   setTimeout(() => btn.classList.add('visible'), 1500);
 }
