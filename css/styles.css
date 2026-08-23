@@ -849,6 +849,21 @@ p { color: var(--color-gray-dark); line-height: 1.75; }
   object-fit: cover;
 }
 
+.review-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.review-photos img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
 /* ===========================
    FOOTER
    =========================== */
